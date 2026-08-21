@@ -16,3 +16,5 @@ ragas
 faiss-cpu
 redis
 deepgram-sdk
+langchain-groq
+langchain-huggingface

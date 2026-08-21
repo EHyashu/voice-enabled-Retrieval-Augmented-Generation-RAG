@@ -41,3 +41,5 @@ frontend/.eslintcache
 .Trashes
 ehthumbs.db
 Thumbs.db
+.vercel
+.env*

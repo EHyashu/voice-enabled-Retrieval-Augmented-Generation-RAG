@@ -96,7 +96,7 @@ class ConnectionManager:
             # Using Groq Llama 3 for ultra-low latency voice responses
             if self.groq_client:
                 completion = self.groq_client.chat.completions.create(
-                    model="llama-3.3-70b-versatile",
+                    model="qwen/qwen3.6-27b",
                     messages=[
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
