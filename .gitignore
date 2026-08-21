@@ -13,10 +13,15 @@ __pycache__/
 *.so
 
 # Data / Uploads / Databases
-data/
+data/*
+!data/local_vectors.pkl
+!data/kv_store.json
+!data/chunks.json
 *.pkl
+!local_vectors.pkl
 *.json
 !chunks.json
+!kv_store.json
 test_vdb.py
 
 # Node.js

@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: voice-rag-backend
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "python backend/main.py"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.8
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DEEPGRAM_API_KEY
+        sync: false
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: voice-rag-redis
+          property: connectionString
+
+  - type: redis
+    name: voice-rag-redis
+    ipAllowList: []

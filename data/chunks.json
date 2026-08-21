@@ -1,0 +1,596 @@
+[
+  {
+    "id": "chunk_sem_0",
+    "text": "नरेंद्र मोदी भारत के वर्तमान प्रधानमंत्री हैं",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 0,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_1",
+    "text": "वह 2014 से इस पद पर कार्यरत हैं और भारतीय जनता पार्टी (भाजपा) के सदस्य हैं",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 0,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_2",
+    "text": "नरेंद्र मोदी भारत के वर्तमान प्रधानमंत्री हैं। वह 2014 से इस पद पर कार्यरत हैं और भारतीय जनता पार्टी (भाजपा) के सदस्य हैं।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 0,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_3",
+    "text": "नरेंद्र मोदी भारत के वर्तमान प्रधानमंत्री हैं। वह 2014 से इस पद पर कार्यरत हैं और भारतीय जनता पार्टी (भाजपा) के सदस्य हैं।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 0,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_4",
+    "text": "Query Context: भारत के प्रधानमंत्री कौन हैं?\nPassage Detail [1]: नरेंद्र मोदी भारत के वर्तमान प्रधानमंत्री हैं। वह 2014 से इस पद पर कार्यरत हैं और भारतीय जनता पार्टी (भाजपा) के सदस्य हैं।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 0,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_5",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 1,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_6",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 1,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_7",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 1,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_8",
+    "text": "Query Context: भारत के प्रधानमंत्री कौन हैं?\nPassage Detail [1]: भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_0",
+      "passage_index": 1,
+      "query": "भारत के प्रधानमंत्री कौन हैं?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_sem_9",
+    "text": "पणजी गोवा की राजधानी है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 0,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_10",
+    "text": "यह मांडवी नदी के किनारे स्थित है और पर्यटकों के बीच काफी लोकप्रिय है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 0,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_11",
+    "text": "पणजी गोवा की राजधानी है। यह मांडवी नदी के किनारे स्थित है और पर्यटकों के बीच काफी लोकप्रिय है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 0,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_12",
+    "text": "पणजी गोवा की राजधानी है। यह मांडवी नदी के किनारे स्थित है और पर्यटकों के बीच काफी लोकप्रिय है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 0,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_13",
+    "text": "Query Context: गोवा की राजधानी क्या है?\nPassage Detail [1]: पणजी गोवा की राजधानी है। यह मांडवी नदी के किनारे स्थित है और पर्यटकों के बीच काफी लोकप्रिय है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 0,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_14",
+    "text": "गोवा भारत का क्षेत्रफल के हिसाब से सबसे छोटा राज्य है और यह अपने सुंदर समुद्र तटों के लिए प्रसिद्ध है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 1,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_15",
+    "text": "गोवा भारत का क्षेत्रफल के हिसाब से सबसे छोटा राज्य है और यह अपने सुंदर समुद्र तटों के लिए प्रसिद्ध है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 1,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_16",
+    "text": "गोवा भारत का क्षेत्रफल के हिसाब से सबसे छोटा राज्य है और यह अपने सुंदर समुद्र तटों के लिए प्रसिद्ध है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 1,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_17",
+    "text": "Query Context: गोवा की राजधानी क्या है?\nPassage Detail [1]: गोवा भारत का क्षेत्रफल के हिसाब से सबसे छोटा राज्य है और यह अपने सुंदर समुद्र तटों के लिए प्रसिद्ध है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_1",
+      "passage_index": 1,
+      "query": "गोवा की राजधानी क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_sem_18",
+    "text": "New Delhi is the capital of India and a administrative district of the city of Delhi.",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 0,
+      "query": "What is the capital of India?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_19",
+    "text": "It serves as the center of all three branches of the Government of India.",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 0,
+      "query": "What is the capital of India?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_20",
+    "text": "New Delhi is the capital of India and a administrative district of the city of Delhi. It serves as the center of all three branches of the Government of India.",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 0,
+      "query": "What is the capital of India?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_21",
+    "text": "New Delhi is the capital of India and a administrative district of the city of Delhi. It serves as the center of all three branches of the Government of India.",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 0,
+      "query": "What is the capital of India?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_22",
+    "text": "Query Context: What is the capital of India?\nPassage Detail [1]: New Delhi is the capital of India and a administrative district of the city of Delhi. It serves as the center of all three branches of the Government of India.",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 0,
+      "query": "What is the capital of India?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_23",
+    "text": "Mumbai is the financial capital of India and the capital city of Maharashtra.",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 1,
+      "query": "What is the capital of India?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_24",
+    "text": "Mumbai is the financial capital of India and the capital city of Maharashtra.",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 1,
+      "query": "What is the capital of India?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_25",
+    "text": "Mumbai is the financial capital of India and the capital city of Maharashtra.",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 1,
+      "query": "What is the capital of India?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_26",
+    "text": "Query Context: What is the capital of India?\nPassage Detail [1]: Mumbai is the financial capital of India and the capital city of Maharashtra.",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_2",
+      "passage_index": 1,
+      "query": "What is the capital of India?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_sem_27",
+    "text": "कृत्रिम बुद्धिमत्ता या आर्टिफिशियल इंटेलिजेंस (AI) कंप्यूटर विज्ञान की एक शाखा है जो मशीनों को बुद्धिमान बनाने का काम करती है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 0,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_28",
+    "text": "यह मशीनों को सोचने, सीखने और निर्णय लेने की क्षमता देती है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 0,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_29",
+    "text": "कृत्रिम बुद्धिमत्ता या आर्टिफिशियल इंटेलिजेंस (AI) कंप्यूटर विज्ञान की एक शाखा है जो मशीनों को बुद्धिमान बनाने का काम करती है। यह मशीनों को सोचने, सीखने और निर्णय लेने की क्षमता देती है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 0,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_30",
+    "text": "कृत्रिम बुद्धिमत्ता या आर्टिफिशियल इंटेलिजेंस (AI) कंप्यूटर विज्ञान की एक शाखा है जो मशीनों को बुद्धिमान बनाने का काम करती है। यह मशीनों को सोचने, सीखने और निर्णय लेने की क्षमता देती है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 0,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_31",
+    "text": "Query Context: कृत्रिम बुद्धिमत्ता (AI) क्या है?\nPassage Detail [1]: कृत्रिम बुद्धिमत्ता या आर्टिफिशियल इंटेलिजेंस (AI) कंप्यूटर विज्ञान की एक शाखा है जो मशीनों को बुद्धिमान बनाने का काम करती है। यह मशीनों को सोचने, सीखने और निर्णय लेने की क्षमता देती है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 0,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_32",
+    "text": "मशीन लर्निंग (ML) आर्टिफिशियल इंटेलिजेंस का एक सबग्रुप है जो एल्गोरिदम को डेटा से सीखने में मदद करता है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 1,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_33",
+    "text": "मशीन लर्निंग (ML) आर्टिफिशियल इंटेलिजेंस का एक सबग्रुप है जो एल्गोरिदम को डेटा से सीखने में मदद करता है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 1,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_34",
+    "text": "मशीन लर्निंग (ML) आर्टिफिशियल इंटेलिजेंस का एक सबग्रुप है जो एल्गोरिदम को डेटा से सीखने में मदद करता है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 1,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_35",
+    "text": "Query Context: कृत्रिम बुद्धिमत्ता (AI) क्या है?\nPassage Detail [1]: मशीन लर्निंग (ML) आर्टिफिशियल इंटेलिजेंस का एक सबग्रुप है जो एल्गोरिदम को डेटा से सीखने में मदद करता है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_3",
+      "passage_index": 1,
+      "query": "कृत्रिम बुद्धिमत्ता (AI) क्या है?",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_sem_36",
+    "text": "राजस्थान की राजधानी जयपुर है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_37",
+    "text": "इसे पिंक सिटी भी कहा जाता है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_38",
+    "text": "राजस्थान की राजधानी जयपुर है। इसे पिंक सिटी भी कहा जाता है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_39",
+    "text": "राजस्थान की राजधानी जयपुर है। इसे पिंक सिटी भी कहा जाता है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_40",
+    "text": "Query Context: व्हाट इस द कैपिटल ऑफ़ राजस्थान\nPassage Detail [1]: राजस्थान की राजधानी जयपुर है। इसे पिंक सिटी भी कहा जाता है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_41",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_42",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_43",
+    "text": "भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_44",
+    "text": "Query Context: व्हाट इस द कैपिटल ऑफ़ राजस्थान\nPassage Detail [1]: भारत के राष्ट्रपति द्रौपदी मुर्मू हैं, जो भारत की दूसरी महिला राष्ट्रपति हैं।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_4",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ राजस्थान",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_sem_45",
+    "text": "भारत की राजधानी नई दिल्ली है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_46",
+    "text": "New Delhi is the capital of India.",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_rec_47",
+    "text": "भारत की राजधानी नई दिल्ली है। New Delhi is the capital of India.",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_tok_48",
+    "text": "भारत की राजधानी नई दिल्ली है। New Delhi is the capital of India.",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_ctx_49",
+    "text": "Query Context: व्हाट इस द कैपिटल ऑफ़ इंडिया\nPassage Detail [1]: भारत की राजधानी नई दिल्ली है। New Delhi is the capital of India.",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 0,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 1
+    }
+  },
+  {
+    "id": "chunk_sem_50",
+    "text": "पणजी गोवा की राजधानी है",
+    "strategy": "semantic",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_rec_51",
+    "text": "पणजी गोवा की राजधानी है।",
+    "strategy": "recursive",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_tok_52",
+    "text": "पणजी गोवा की राजधानी है।",
+    "strategy": "token",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 0
+    }
+  },
+  {
+    "id": "chunk_ctx_53",
+    "text": "Query Context: व्हाट इस द कैपिटल ऑफ़ इंडिया\nPassage Detail [1]: पणजी गोवा की राजधानी है।",
+    "strategy": "context",
+    "metadata": {
+      "source_id": "mock_5",
+      "passage_index": 1,
+      "query": "व्हाट इस द कैपिटल ऑफ़ इंडिया",
+      "is_selected": 0
+    }
+  }
+]
