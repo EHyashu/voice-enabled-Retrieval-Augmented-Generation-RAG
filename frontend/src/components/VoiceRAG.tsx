@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Mic, Square, Play, RefreshCw, Layers, Database, Cpu, MessageSquare, Settings } from 'lucide-react';
+import { Mic, Square, Play, Database, MessageSquare } from 'lucide-react';
 
 interface Source {
   text: string;
