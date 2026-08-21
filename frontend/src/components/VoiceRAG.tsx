@@ -33,11 +33,14 @@ export const VoiceRAG: React.FC = () => {
   const connectWebSocket = () => {
     if (wsRef.current?.readyState === WebSocket.OPEN) return;
     
-    // Connect to FastAPI WebSocket backend
-    const ws = new WebSocket(`ws://${window.location.host}/api/ws/voice`);
-    ws.binaryType = 'blob';
-    
-    ws.onmessage = async (event) => {
+    try {
+      // Connect to FastAPI WebSocket backend
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const wsUrl = import.meta.env.VITE_WS_URL || `${protocol}//${window.location.host}/api/ws/voice`;
+      const ws = new WebSocket(wsUrl);
+      ws.binaryType = 'blob';
+      
+      ws.onmessage = async (event) => {
       if (typeof event.data === 'string') {
         const msg = JSON.parse(event.data);
         if (msg.type === 'transcript') {
@@ -70,8 +73,11 @@ export const VoiceRAG: React.FC = () => {
       }
     };
     
-    ws.onerror = (err) => console.error("WS Error", err);
-    wsRef.current = ws;
+      ws.onerror = (err) => console.error("WS Error", err);
+      wsRef.current = ws;
+    } catch (error) {
+      console.error("Failed to connect to WebSocket", error);
+    }
   };
 
   useEffect(() => {
