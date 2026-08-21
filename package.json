@@ -2,6 +2,6 @@
   "name": "voice-rag-orchestrator",
   "version": "1.0.0",
   "scripts": {
-    "vercel-build": "cd frontend && npm install && npm run build && cd .. && rm -rf public && cp -r frontend/dist public"
+    "build": "cd frontend && npm install && npm run build"
   }
 }
