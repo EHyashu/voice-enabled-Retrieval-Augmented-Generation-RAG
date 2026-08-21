@@ -1,6 +1,7 @@
 import os
 import json
 import time
+import asyncio
 from typing import Dict, Any, List
 from fastapi import FastAPI, Request, UploadFile, File, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
@@ -104,14 +105,17 @@ async def upload_document(file: UploadFile = File(...)):
         print(f"Error processing document: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
+from fastapi import Request
+
 @app.post("/api/rag")
-async def rag_pipeline(req: RAGRequest):
+async def rag_pipeline(req: RAGRequest, request: Request):
     query = req.query
     print(f"Processing RAG query: '{query}'")
     
     # 1. Retrieve top-3 from Pinecone / Local Vector DB
     retrieval_start = time.time()
-    search_res = vdb_manager.search(query, top_k=3)
+    from fastapi.concurrency import run_in_threadpool
+    search_res = await run_in_threadpool(vdb_manager.search, query, 3)
     retrieval_latency = (time.time() - retrieval_start) * 1000
     
     sources = search_res["results"].get("matches", [])
@@ -144,8 +148,9 @@ async def rag_pipeline(req: RAGRequest):
     
     user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}\n\nConcise Answer:"
     
-    def generate_llm_stream():
-        # First send the sources to the client
+    async def generate_llm_stream():
+        try:
+            # First send the sources to the client
         yield "data: " + json.dumps({'type': 'sources', 'sources': [{'text': s['metadata']['text'], 'strategy': s['metadata']['strategy'], 'score': s.get('score', 0)} for s in sources]}) + "\n\n"
         
         start_time = time.time()
@@ -171,7 +176,7 @@ Context Information:
                     temperature=0.3,
                     max_tokens=150,
                     stream=True,
-                    timeout=10.0
+                    timeout=2.0
                 )
                 buffer = ""
                 in_think_block = False
@@ -287,6 +292,10 @@ Context Information:
             time.sleep(0.02)
             
         yield "data: " + json.dumps({'type': 'done'}) + "\n\n"
+        
+        except asyncio.CancelledError:
+            print("Client disconnected, aborting generation.")
+            raise
             
     return StreamingResponse(
         generate_llm_stream(),

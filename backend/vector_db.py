@@ -16,17 +16,39 @@ import pickle
 
 class LocalVectorDB:
     def __init__(self, storage_path="data/local_vectors.pkl"):
-        print("Using local mock vector database (fallback)...")
+        print("Using local mock vector database (fallback with FAISS)...")
         self.storage_path = storage_path
         self.vectors = {}
+        self.id_map = []
+        import faiss
+        self.index = faiss.IndexFlatIP(384) # MiniLM outputs 384 dims
         self.load_from_disk()
         
+    def build_faiss_index(self):
+        import faiss
+        self.index = faiss.IndexFlatIP(384)
+        self.id_map = []
+        
+        if not self.vectors:
+            return
+            
+        vectors_list = []
+        for vid, data in self.vectors.items():
+            vectors_list.append(data["values"])
+            self.id_map.append(vid)
+            
+        if vectors_list:
+            vec_array = np.array(vectors_list, dtype=np.float32)
+            faiss.normalize_L2(vec_array)
+            self.index.add(vec_array)
+
     def load_from_disk(self):
         if os.path.exists(self.storage_path):
             try:
                 with open(self.storage_path, "rb") as f:
                     self.vectors = pickle.load(f)
                 print(f"Loaded {len(self.vectors)} vectors from local storage.")
+                self.build_faiss_index()
             except Exception as e:
                 print(f"Failed to load local vectors: {e}")
 
@@ -42,28 +64,32 @@ class LocalVectorDB:
                 "metadata": v["metadata"]
             }
         self.save_to_disk()
+        self.build_faiss_index()
         print(f"Upserted {len(vectors)} vectors locally.")
         
     def query(self, vector: List[float], top_k: int = 5, include_metadata: bool = True) -> Dict[str, Any]:
-        query_vec = np.array(vector, dtype=np.float32)
-        # Calculate cosine similarity
-        results = []
-        for vid, data in self.vectors.items():
-            db_vec = data["values"]
-            dot_product = np.dot(query_vec, db_vec)
-            norm_q = np.linalg.norm(query_vec)
-            norm_db = np.linalg.norm(db_vec)
-            similarity = float(dot_product / (norm_q * norm_db)) if norm_q > 0 and norm_db > 0 else 0.0
+        if not self.vectors or self.index.ntotal == 0:
+            return {"matches": []}
             
+        import faiss
+        query_vec = np.array([vector], dtype=np.float32)
+        faiss.normalize_L2(query_vec)
+        
+        # Search FAISS index
+        scores, indices = self.index.search(query_vec, min(top_k, self.index.ntotal))
+        
+        results = []
+        for i, idx in enumerate(indices[0]):
+            if idx == -1: continue
+            vid = self.id_map[idx]
+            data = self.vectors[vid]
             results.append({
                 "id": vid,
-                "score": similarity,
+                "score": float(scores[0][i]),
                 "metadata": data["metadata"] if include_metadata else {}
             })
             
-        # Sort by similarity score descending
-        results.sort(key=lambda x: x["score"], reverse=True)
-        return {"matches": results[:top_k]}
+        return {"matches": results}
 
 class VectorDatabaseManager:
     def __init__(self):
@@ -84,11 +110,23 @@ class VectorDatabaseManager:
         
         # Load embedding model
         self.init_embedding_model()
+        self.init_redis()
         
         # Force Local Vector DB to eliminate 4000ms+ network spikes from Pinecone serverless
         print("Forcing LocalVectorDB for zero network latency.")
         self.index = LocalVectorDB()
         self.use_fallback = True
+        
+    def init_redis(self):
+        import redis
+        try:
+            self.redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True, socket_connect_timeout=0.5)
+            self.redis_client.ping()
+            print("Connected to Redis cache.")
+        except Exception as e:
+            print("Redis not available, using in-memory dictionary cache.")
+            self.redis_client = None
+        self.local_cache = {}
 
     def init_embedding_model(self):
         print("Loading sentence-transformers/all-MiniLM-L6-v2 embedding model...")
@@ -144,8 +182,23 @@ class VectorDatabaseManager:
         print("Upsert completed successfully.")
 
     def search(self, query: str, top_k: int = 5) -> Dict[str, Any]:
-        # MiniLM models don't require prefix
-        query_embedding = self.embedding_model.encode([query], normalize_embeddings=True)[0].tolist()
+        import hashlib, json
+        cache_key = f"emb:{hashlib.sha256(query.strip().lower().encode()).hexdigest()}"
+        
+        query_embedding = None
+        if self.redis_client:
+            cached = self.redis_client.get(cache_key)
+            if cached: query_embedding = json.loads(cached)
+        else:
+            query_embedding = self.local_cache.get(cache_key)
+            
+        if not query_embedding:
+            # MiniLM models don't require prefix
+            query_embedding = self.embedding_model.encode([query], normalize_embeddings=True)[0].tolist()
+            if self.redis_client:
+                self.redis_client.set(cache_key, json.dumps(query_embedding), ex=3600)
+            else:
+                self.local_cache[cache_key] = query_embedding
         
         start_time = time.time()
         if self.use_fallback:

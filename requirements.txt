@@ -10,3 +10,8 @@ tiktoken
 httpx
 pydantic
 groq
+PyPDF2
+duckduckgo-search
+ragas
+faiss-cpu
+redis
