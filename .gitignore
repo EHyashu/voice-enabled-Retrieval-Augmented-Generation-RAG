@@ -19,9 +19,6 @@ data/*
 !data/chunks.json
 *.pkl
 !local_vectors.pkl
-*.json
-!chunks.json
-!kv_store.json
 test_vdb.py
 
 # Node.js
