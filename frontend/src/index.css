@@ -1,0 +1,156 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+:root {
+  /* Blush Design Color Palette */
+  --text: #1a1a1a;
+  --text-light: #4a4a4a;
+  --bg: #fffbf5; /* Soft pale yellow/cream */
+  --card-bg: #ffffff;
+  --border: #1a1a1a; /* Solid black for neo-brutalism borders */
+  
+  --accent-pink: #fecaca;
+  --accent-purple: #e9d5ff;
+  --accent-blue: #bfdbfe;
+  --accent-green: #bbf7d0;
+  --accent-yellow: #fef08a;
+  
+  --primary: #fb923c; /* Orange */
+  
+  --shadow-solid: 4px 4px 0px 0px rgba(26, 26, 26, 1);
+  --shadow-soft: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+
+  --font-main: 'Quicksand', system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--bg);
+  color: var(--text);
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  min-height: 100vh;
+}
+
+/* Base Styles */
+h1, h2, h3, h4 {
+  font-weight: 700;
+  margin: 0;
+}
+
+p {
+  line-height: 1.6;
+}
+
+button {
+  font-family: var(--font-main);
+  font-weight: 700;
+  cursor: pointer;
+  border: 2px solid var(--border);
+  background-color: #fff;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); /* Bouncy transition */
+  box-shadow: var(--shadow-solid);
+}
+
+button:hover {
+  transform: translateY(-2px) translateX(-2px);
+  box-shadow: 6px 6px 0px 0px rgba(26, 26, 26, 1);
+}
+
+button:active {
+  transform: translateY(2px) translateX(2px);
+  box-shadow: 0px 0px 0px 0px rgba(26, 26, 26, 1);
+}
+
+/* Animations */
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.5; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-5px); }
+  100% { transform: translateY(0px); }
+}
+
+/* Utility classes for Blush styling */
+.blush-card {
+  background-color: var(--card-bg);
+  border: 3px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  box-shadow: var(--shadow-solid);
+  transition: transform 0.2s;
+}
+
+.blush-card:hover {
+  transform: translateY(-4px);
+}
+
+.blush-pill {
+  border-radius: 9999px;
+  padding: 12px 24px;
+  border: 2px solid var(--border);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.bg-pink { background-color: var(--accent-pink); }
+.bg-purple { background-color: var(--accent-purple); }
+.bg-blue { background-color: var(--accent-blue); }
+.bg-green { background-color: var(--accent-green); }
+.bg-yellow { background-color: var(--accent-yellow); }
+
+.chat-bubble {
+  background-color: var(--accent-blue);
+  border: 2px solid var(--border);
+  border-radius: 24px;
+  border-bottom-left-radius: 4px;
+  padding: 16px 24px;
+  font-size: 1.1rem;
+  box-shadow: 3px 3px 0px 0px var(--border);
+  position: relative;
+  margin-top: 1rem;
+}
+
+.mic-button {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--border);
+  background-color: var(--accent-pink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-solid);
+  font-size: 2rem;
+  margin: 2rem auto;
+  position: relative;
+  z-index: 10;
+}
+
+.mic-button.recording {
+  background-color: #f87171;
+  animation: float 2s infinite ease-in-out;
+}
+
+.mic-button.recording::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 50%;
+  border: 2px solid #f87171;
+  animation: pulse-ring 1.5s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+  z-index: -1;
+}

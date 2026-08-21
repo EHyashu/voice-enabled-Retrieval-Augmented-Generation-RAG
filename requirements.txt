@@ -1,0 +1,12 @@
+datasets
+sentence-transformers
+pinecone
+fastapi
+uvicorn
+anthropic
+python-dotenv
+nltk
+tiktoken
+httpx
+pydantic
+groq
