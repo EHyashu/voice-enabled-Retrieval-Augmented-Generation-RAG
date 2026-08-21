@@ -9,9 +9,13 @@ from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
-# Import vector database manager
 from backend.vector_db import VectorDatabaseManager
 from backend.ingestion import DocumentIngestor
+from backend.ws_manager import ConnectionManager
+from fastapi import WebSocket
+
+vdb_manager = VectorDatabaseManager()
+ws_manager = ConnectionManager(vdb_manager)
 
 load_dotenv()
 
@@ -89,6 +93,10 @@ def get_mock_stream(query: str, sources: List[Dict[str, Any]], retrieval_latency
     yield "data: " + json.dumps({'type': 'done'}) + "\n\n"
 
 ingestor = DocumentIngestor()
+
+@app.websocket("/api/ws/voice")
+async def websocket_voice_endpoint(websocket: WebSocket):
+    await ws_manager.handle_voice_session(websocket)
 
 @app.post("/api/upload")
 async def upload_document(file: UploadFile = File(...)):

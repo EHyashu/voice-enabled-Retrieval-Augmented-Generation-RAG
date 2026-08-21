@@ -15,3 +15,4 @@ duckduckgo-search
 ragas
 faiss-cpu
 redis
+deepgram-sdk
