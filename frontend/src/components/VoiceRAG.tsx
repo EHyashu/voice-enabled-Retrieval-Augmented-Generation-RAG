@@ -201,8 +201,15 @@ export const VoiceRAG: React.FC = () => {
       const utterance = new SpeechSynthesisUtterance(cleanedText);
       (window as any)._currentUtterance = utterance; // Prevent Garbage Collection (Crucial bug in Chrome/Safari)
       
-      // Force English voice to prevent silent failures on systems without regional voices installed
-      utterance.lang = "en-US";
+      // Select an actual voice object (fixes silent failure on many Chrome/Edge versions)
+      const voices = window.speechSynthesis.getVoices();
+      if (voices.length > 0) {
+        const preferredVoice = voices.find(v => v.lang.startsWith('en')) || voices[0];
+        utterance.voice = preferredVoice;
+        utterance.lang = preferredVoice.lang;
+      } else {
+        utterance.lang = "en-US";
+      }
       
       // Let the browser automatically pick the best native voice for the detected language
       window.speechSynthesis.speak(utterance);
