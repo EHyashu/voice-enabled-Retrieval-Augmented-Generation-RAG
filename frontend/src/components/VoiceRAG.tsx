@@ -124,7 +124,7 @@ export const VoiceRAG: React.FC = () => {
           
           setLoading(true);
           await queryBackendRAG(text, 0);
-        }, 1200); // Wait 1.2 seconds of silence before auto-submitting
+        }, 500); // Wait 500ms of silence before auto-submitting
       };
 
       recognition.onerror = (event: any) => {

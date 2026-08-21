@@ -109,32 +109,16 @@ async def rag_pipeline(req: RAGRequest):
     query = req.query
     print(f"Processing RAG query: '{query}'")
     
-    # 1. Retrieve top-5 from Pinecone / Local Vector DB
+    # 1. Retrieve top-3 from Pinecone / Local Vector DB
     retrieval_start = time.time()
-    search_res = vdb_manager.search(query, top_k=5)
+    search_res = vdb_manager.search(query, top_k=3)
     retrieval_latency = (time.time() - retrieval_start) * 1000
     
     sources = search_res["results"].get("matches", [])
     print(f"Retrieved {len(sources)} sources in {retrieval_latency:.2f}ms")
     
     highest_score = max([s.get('score', 0) for s in sources]) if sources else 0
-    if highest_score < 0.75:
-        try:
-            print(f"Low confidence (Max score: {highest_score:.2f}). Triggering DuckDuckGo Web Search...")
-            from duckduckgo_search import DDGS
-            with DDGS() as ddgs:
-                web_results = list(ddgs.text(query, max_results=2))
-                for res in web_results:
-                    sources.append({
-                        'score': 0.99,
-                        'metadata': {
-                            'strategy': 'web_search',
-                            'text': f"{res.get('body', '')} (URL: {res.get('href', '')})"
-                        }
-                    })
-        except Exception as e:
-            print(f"Web search failed: {e}")
-    
+
     if use_mock_llm:
         return StreamingResponse(
             get_mock_stream(query, sources, retrieval_latency),
@@ -148,17 +132,14 @@ async def rag_pipeline(req: RAGRequest):
     ])
     
     system_prompt = (
-        "You are the voice assistant for the Voice RAG Orchestrator. Your primary goal is to provide polite, concise, and natural human-like spoken responses based on the provided context and confidence levels.\n\n"
-        "Follow these strict behavioral guidelines for voice output:\n\n"
-        "1. Conversational & Human-like Tone: Speak naturally like a helpful peer. Avoid overly formal, rigid, or robotic phrasing. Use polite and welcoming language.\n"
-        "2. Voice-Optimized Brevity: Keep answers to 1-2 short sentences maximum. Long paragraphs sound exhausting when read aloud. Get straight to the point.\n"
-        "3. Language Matching: Respond in the exact language or script dialect the user used. If the query or context is in Hindi/Hinglish, reply in clear, natural Hindi/Hinglish.\n"
-        "4. Smooth Integration of Context: Seamlessly weave the facts from the retrieved context into a natural sentence. Do not say 'According to the document' or 'Based on source 1' as it ruins the voice experience.\n\n"
-        "5. Low Confidence & Mismatched Context Fallback Rules:\n"
-        "   - If the Retrieval Match Score is low (e.g., below 60%), or if the retrieved facts clearly contradict the query (e.g., query asks for India's capital, but context only talks about Goa), TRIGGER FALLBACK.\n"
-        "   - Fallback Action: Politely provide the correct answer using your internal knowledge base instead of forcing the incorrect context into the response.\n"
-        "   - Add a gentle, helpful transition phrase. Example: 'मुझे इसके लिए सटीक दस्तावेज़ नहीं मिला, लेकिन सामान्य जानकारी के अनुसार नई दिल्ली भारत की राजधानी है।' (I couldn't find the exact document for this, but according to general knowledge, New Delhi is the capital of India.)\n\n"
-        "6. Clean Text formatting: Do not use markdown (bolding, bullet points, asterisks, or hashtags) in your output, as TTS engines might mispronounce or glitch on these symbols."
+        "You are a voice assistant for the Voice RAG Orchestrator.\n"
+        "Rules:\n"
+        "- Answer in 1-2 short sentences maximum.\n"
+        "- Use only relevant context.\n"
+        "- Don't mention sources.\n"
+        "- Don't use markdown.\n"
+        "- If context is insufficient, say so.\n"
+        "- Be conversational."
     )
     
     user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}\n\nConcise Answer:"
@@ -188,7 +169,7 @@ Context Information:
                         {"role": "user", "content": user_prompt}
                     ],
                     temperature=0.3,
-                    max_tokens=1024,
+                    max_tokens=150,
                     stream=True,
                     timeout=10.0
                 )
