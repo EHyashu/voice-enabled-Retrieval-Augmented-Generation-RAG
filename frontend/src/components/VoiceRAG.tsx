@@ -655,7 +655,7 @@ export const VoiceRAG: React.FC = () => {
           <div className="timeline-node">
             <div className="node-icon"><MessageSquare size={14} /></div>
             <div className="node-info">
-              <span className="node-name">Claude LLM (TTFT)</span>
+              <span className="node-name">Generation LLM (TTFT)</span>
               <span className="node-val">
                 {metrics.llmFirstTokenLatencyMs > 0 ? `${metrics.llmFirstTokenLatencyMs.toFixed(0)}ms` : '0ms'}
               </span>
