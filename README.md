@@ -120,3 +120,4 @@ flowchart TD
 - Run retrieval benchmarks: `python3 backend/vector_db.py`
 - Run concurrent load testing (10 clients): `python3 scripts/load_test.py`
 - Latency profiling details can be found in [LATENCY_REPORT.md](file:///Users/yashu/voice%20rag/voice-enabled-Retrieval-Augmented-Generation-RAG/LATENCY_REPORT.md).
+# voice-enabled-Retrieval-Augmented-Generation-RAG
