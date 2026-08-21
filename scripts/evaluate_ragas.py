@@ -1,34 +1,37 @@
-import os
-import json
 import asyncio
+import os
+import sys
+from unittest.mock import MagicMock
+
 from datasets import Dataset
 from dotenv import load_dotenv
 
-import sys
-from unittest.mock import MagicMock
 # Mock vertexai to avoid Ragas import crash with newer langchain versions
 sys.modules['langchain_community.chat_models.vertexai'] = MagicMock()
 sys.modules['langchain_community.llms.vertexai'] = MagicMock()
 
 load_dotenv()
 
+# Import our backend modules
+import sys
+
+from langchain_groq import ChatGroq
+from langchain_huggingface import HuggingFaceEmbeddings
 from ragas import evaluate
+from ragas.embeddings import LangchainEmbeddingsWrapper
+from ragas.llms import LangchainLLMWrapper
 from ragas.metrics import (
+    answer_relevancy,
     context_precision,
     context_recall,
     faithfulness,
-    answer_relevancy
 )
-from ragas.llms import LangchainLLMWrapper
-from ragas.embeddings import LangchainEmbeddingsWrapper
-from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
 
-# Import our backend modules
-import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-from backend.vector_db import VectorDatabaseManager
 import groq
+
+from backend.vector_db import VectorDatabaseManager
+
 
 def generate_answer(query: str, contexts: list[str]) -> str:
     """Generates an answer using Groq Llama 3 for evaluation purposes."""

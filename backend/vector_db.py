@@ -1,8 +1,9 @@
-import os
 import json
+import os
 import time
+from typing import Any
+
 import numpy as np
-from typing import List, Dict, Any
 from dotenv import load_dotenv
 
 # Load environment variables
@@ -13,6 +14,7 @@ PINECONE_INDEX_NAME = os.getenv("PINECONE_INDEX_NAME", "msmarco-rag-e5")
 
 # Class for fallback Local Vector Database (in case Pinecone key is missing or invalid)
 import pickle
+
 
 class LocalVectorDB:
     def __init__(self, storage_path="data/local_vectors.pkl"):
@@ -57,7 +59,7 @@ class LocalVectorDB:
         with open(self.storage_path, "wb") as f:
             pickle.dump(self.vectors, f)
             
-    def upsert(self, vectors: List[Dict[str, Any]]):
+    def upsert(self, vectors: list[dict[str, Any]]):
         for v in vectors:
             self.vectors[v["id"]] = {
                 "values": np.array(v["values"], dtype=np.float32),
@@ -67,7 +69,7 @@ class LocalVectorDB:
         self.build_faiss_index()
         print(f"Upserted {len(vectors)} vectors locally.")
         
-    def query(self, vector: List[float], top_k: int = 5, include_metadata: bool = True) -> Dict[str, Any]:
+    def query(self, vector: list[float], top_k: int = 5, include_metadata: bool = True) -> dict[str, Any]:
         if not self.vectors or self.index.ntotal == 0:
             return {"matches": []}
             
@@ -123,7 +125,7 @@ class VectorDatabaseManager:
             self.redis_client = redis.Redis(host='localhost', port=6379, db=0, decode_responses=True, socket_connect_timeout=0.5)
             self.redis_client.ping()
             print("Connected to Redis cache.")
-        except Exception as e:
+        except Exception:
             print("Redis not available, using in-memory dictionary cache.")
             self.redis_client = None
         self.local_cache = {}
@@ -140,11 +142,11 @@ class VectorDatabaseManager:
         self.embedding_model.encode(["warmup"], show_progress_bar=False)
         print("Embedding model loaded successfully.")
 
-    def get_embeddings(self, texts: List[str]) -> List[List[float]]:
+    def get_embeddings(self, texts: list[str]) -> list[list[float]]:
         embeddings = self.embedding_model.encode(texts, show_progress_bar=False, normalize_embeddings=True)
         return embeddings.tolist()
 
-    def upsert_chunks(self, chunks: List[Dict[str, Any]], batch_size: int = 32):
+    def upsert_chunks(self, chunks: list[dict[str, Any]], batch_size: int = 32):
         print(f"Upserting {len(chunks)} chunks in batches of {batch_size}...")
         
         for i in range(0, len(chunks), batch_size):
@@ -181,8 +183,9 @@ class VectorDatabaseManager:
             
         print("Upsert completed successfully.")
 
-    def search(self, query: str, top_k: int = 5) -> Dict[str, Any]:
-        import hashlib, json
+    def search(self, query: str, top_k: int = 5) -> dict[str, Any]:
+        import hashlib
+        import json
         cache_key = f"emb:{hashlib.sha256(query.strip().lower().encode()).hexdigest()}"
         
         query_embedding = None

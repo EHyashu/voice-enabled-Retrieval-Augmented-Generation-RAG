@@ -1,8 +1,9 @@
 import asyncio
-import time
 import json
+import time
+from typing import Any
+
 import httpx
-from typing import List, Dict, Any
 
 BACKEND_URL = "http://localhost:8000/api/rag"
 TEST_QUERIES = [
@@ -18,7 +19,7 @@ TEST_QUERIES = [
     "AI is computer science"
 ]
 
-async def send_single_rag_request(client: httpx.AsyncClient, req_id: int, query: str) -> Dict[str, Any]:
+async def send_single_rag_request(client: httpx.AsyncClient, req_id: int, query: str) -> dict[str, Any]:
     print(f"[Request {req_id}] Started: '{query}'")
     
     start_time = time.time()
@@ -106,7 +107,7 @@ async def run_load_test(concurrency: int = 10):
     end_test_time = time.time()
     print_results_summary(results, (end_test_time - start_test_time) * 1000)
 
-def print_results_summary(results: List[Dict[str, Any]], total_test_duration_ms: float):
+def print_results_summary(results: list[dict[str, Any]], total_test_duration_ms: float):
     success_results = [r for r in results if r["status"] == "success"]
     failed_results = [r for r in results if r["status"] == "failed"]
     

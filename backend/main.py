@@ -1,21 +1,18 @@
-import os
 import json
+import os
 import time
-import asyncio
-from typing import Dict, Any, List
-from fastapi import FastAPI, Request, UploadFile, File, HTTPException
+from typing import Any
+
+from dotenv import load_dotenv
+from fastapi import FastAPI, File, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from dotenv import load_dotenv
 
-from backend.vector_db import VectorDatabaseManager
 from backend.ingestion import DocumentIngestor
-from backend.ws_manager import ConnectionManager
-from fastapi import WebSocket
+from backend.vector_db import VectorDatabaseManager
 
 vdb_manager = VectorDatabaseManager()
-ws_manager = ConnectionManager(vdb_manager)
 
 load_dotenv()
 
@@ -63,7 +60,7 @@ if use_mock_llm:
 class RAGRequest(BaseModel):
     query: str
 
-def get_mock_stream(query: str, sources: List[Dict[str, Any]], retrieval_latency: float):
+def get_mock_stream(query: str, sources: list[dict[str, Any]], retrieval_latency: float):
     """Generates a mock streaming answer in case Claude API is not configured."""
     source_texts = "\n".join([f"- [{s['metadata']['strategy']}] {s['metadata']['text']}" for s in sources])
     
@@ -94,10 +91,6 @@ def get_mock_stream(query: str, sources: List[Dict[str, Any]], retrieval_latency
 
 ingestor = DocumentIngestor()
 
-@app.websocket("/api/ws/voice")
-async def websocket_voice_endpoint(websocket: WebSocket):
-    await ws_manager.handle_voice_session(websocket)
-
 @app.post("/api/upload")
 async def upload_document(file: UploadFile = File(...)):
     print(f"Received file upload: {file.filename}")
@@ -113,7 +106,6 @@ async def upload_document(file: UploadFile = File(...)):
         print(f"Error processing document: {e}")
         raise HTTPException(status_code=500, detail=str(e))
 
-from fastapi import Request
 
 @app.post("/api/rag")
 async def rag_pipeline(req: RAGRequest, request: Request):
@@ -129,8 +121,6 @@ async def rag_pipeline(req: RAGRequest, request: Request):
     sources = search_res["results"].get("matches", [])
     print(f"Retrieved {len(sources)} sources in {retrieval_latency:.2f}ms")
     
-    highest_score = max([s.get('score', 0) for s in sources]) if sources else 0
-
     if use_mock_llm:
         return StreamingResponse(
             get_mock_stream(query, sources, retrieval_latency),
@@ -157,8 +147,6 @@ async def rag_pipeline(req: RAGRequest, request: Request):
     user_prompt = f"Context:\n{context_str}\n\nQuestion: {query}\n\nConcise Answer:"
     
     async def generate_llm_stream():
-        try:
-            # First send the sources to the client
         yield "data: " + json.dumps({'type': 'sources', 'sources': [{'text': s['metadata']['text'], 'strategy': s['metadata']['strategy'], 'score': s.get('score', 0)} for s in sources]}) + "\n\n"
         
         start_time = time.time()
@@ -300,10 +288,6 @@ Context Information:
             time.sleep(0.02)
             
         yield "data: " + json.dumps({'type': 'done'}) + "\n\n"
-        
-        except asyncio.CancelledError:
-            print("Client disconnected, aborting generation.")
-            raise
             
     return StreamingResponse(
         generate_llm_stream(),

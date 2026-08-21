@@ -1,8 +1,10 @@
 import io
 import uuid
-from typing import List, Dict, Any
-from PyPDF2 import PdfReader
+from typing import Any
+
 from langchain_text_splitters import RecursiveCharacterTextSplitter
+from PyPDF2 import PdfReader
+
 
 class DocumentIngestor:
     def __init__(self):
@@ -28,7 +30,7 @@ class DocumentIngestor:
         """Extract text from a TXT file."""
         return file_bytes.decode('utf-8')
 
-    def process_document(self, file_bytes: bytes, filename: str) -> List[Dict[str, Any]]:
+    def process_document(self, file_bytes: bytes, filename: str) -> list[dict[str, Any]]:
         """Parse a document and return a list of chunks ready for vector DB upsertion."""
         # 1. Parse Text
         if filename.lower().endswith('.pdf'):
